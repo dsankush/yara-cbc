@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yara Cashback Campaign Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="yara_logo.png" alt="Yara Logo" class="logo">
+                    <div class="header-text">
+                        <h1>Yara Cashback Campaign</h1>
+                        <p>Analytics Dashboard</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-download" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download Data
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filters-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="universalSearch" placeholder="Search anything...">
+                </div>
+                
+                <div class="filter-group">
+                    <label><i class="fas fa-calendar-alt"></i> Date Range</label>
+                    <div class="date-inputs">
+                        <input type="date" id="startDate" class="filter-input">
+                        <span>to</span>
+                        <input type="date" id="endDate" class="filter-input">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-map-marker-alt"></i> District</label>
+                    <select id="districtFilter" class="filter-select" multiple>
+                        <option value="">All Districts</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-seedling"></i> Crop</label>
+                    <select id="cropFilter" class="filter-select" multiple>
+                        <option value="">All Crops</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-box"></i> Product</label>
+                    <select id="productFilter" class="filter-select" multiple>
+                        <option value="">All Products</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-store"></i> Retailer</label>
+                    <select id="retailerFilter" class="filter-select" multiple>
+                        <option value="">All Retailers</option>
+                    </select>
+                </div>
+
+                <button class="btn-reset" id="resetFilters">
+                    <i class="fas fa-redo"></i> Reset Filters
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-section">
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #3498db;">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="totalScans">0</h3>
+                    <p>Total Scans</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #2ecc71;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="uniqueFarmers">0</h3>
+                    <p>Unique Farmers</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #f39c12;">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="pendingCount">0</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #27ae60;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="verifiedCount">0</h3>
+                    <p>Verified</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #e74c3c;">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="rejectedCount">0</h3>
+                    <p>Rejected</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #9b59b6;">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="cashbackWinners">0</h3>
+                    <p>Cashback Winners</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #16a085;">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="totalCashback">₹0</h3>
+                    <p>Total Cashback</p>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon" style="background: #d35400;">
+                    <i class="fas fa-store-alt"></i>
+                </div>
+                <div class="kpi-content">
+                    <h3 id="activeRetailers">0</h3>
+                    <p>Active Retailers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card large">
+                <h3><i class="fas fa-chart-bar"></i> Product-wise Orders</h3>
+                <canvas id="productChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fas fa-money-bill-wave"></i> Product-wise Cashback Distribution</h3>
+                <canvas id="cashbackChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fas fa-seedling"></i> Crop-wise Distribution</h3>
+                <canvas id="cropChart"></canvas>
+            </div>
+
+            <div class="chart-card large">
+                <h3><i class="fas fa-map-marked-alt"></i> District-wise Farmer Distribution</h3>
+                <div id="indiaMap"></div>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fas fa-wallet"></i> Budget Consumption by Product</h3>
+                <div id="budgetTable"></div>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fas fa-crown"></i> Top 10 Performing Retailers</h3>
+                <canvas id="retailerChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
