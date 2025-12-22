@@ -1,0 +1,101 @@
+Order ID,Check,Date of Entry,RIN,Retailer Name,Farmer Name,Farmer Mobile,Language,State,District,Pincode,Crops Selected,Land Acreage,Product Name 1,Product Quantity 1,Product Size 1,Product Name 2,Product Quantity 2,Product Size 2,Product Name 3,Product Quantity 3,Product Size 3,Product Name 4,Product Quantity 4,Product Size 4,Product Name 5,Product Quantity 5,Product Size 5,Coupon Code,Submission Status,Approval Status,Approval Timestamp,Missed Call Number,FA Name,Source,Thank You WA Status,Farmer Lang,Sowing Date
+66,66,2025-12-06 14:38:55,20591,Lawaniya khad bhandar,Ashish Lavaniya,7409399663,hi_IN,,Agra,,potato,25,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,"YaraMila Complex 
+ Cashback Amount : ₹40",1,25kg,,,,,,,,,,,No,Pending,,,,Landing,,hi,2025-10-15
+68,68,2025-12-09 17:19:33,20621,Taj khad Bhandar YCNC,ikram husain,6397304941,hi_IN,,Amroha,,potato,10,"YaraMila Complex 
+ Cashback Amount : ₹40",2,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",5,25kg,,,,,,,,,,,No,Verified,2025-12-10 14:30:21,,,Landing,read,hi,2025-10-06
+69,69,2025-12-09 19:17:42,20628,Kisan sewa kendra,Vipin Kumar,9837635771,hi_IN,,Moradabad,,potato,1,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,,,,,,,,,,,,,,No,Verified,2025-12-09 21:00:16,,,Landing,delivered,en,0000-00-00
+70,70,2025-12-09 19:32:55,20628,Kisan sewa kendra,Rishabh Rishabh,9193511367,hi_IN,,Moradabad,,potato,2,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,"YaraMila Complex 
+ Cashback Amount : ₹40",1,25kg,,,,,,,,,,,No,Verified,2025-12-12 8:10:19,,,Landing,delivered,en,0000-00-00
+71,71,2025-12-09 19:34:31,20628,Kisan sewa kendra,Rishabh Rishabh,9193511367,hi_IN,,Moradabad,,potato,2,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",8,25kg,,,,,,,,,,,,,,No,Verified,2025-12-12 8:10:20,,,Landing,delivered,en,0000-00-00
+72,72,2025-12-10 18:26:08,20628,Kisan sewa kendra,Vipin  kumar,8273111194,hi_IN,,Moradabad,,"paddy,potato",6,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,,,,,,,,,,,,,,No,Verified,2025-12-10 18:30:25,,,Landing,sent,hi,0000-00-00
+73,73,2025-12-12 9:00:01,20588,Modi seeds and fertilizers agency,Suneel Kumar,9412010084,hi_IN,,Agra,,potato,2,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",21,25kg,,,,,,,,,,,,,,No,Pending,,,,Landing,,en,2025-11-20
+75,75,2025-12-12 16:01:20,20621,Taj khad Bhandar YCNC,Mahir Alam,9568286750,hi_IN,,Amroha,,potato,4,"YaraMila Complex 
+ Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",6,25kg,,,,,,,,,,,No,Verified,2025-12-12 16:05:28,,,Landing,sent,en,2025-10-20
+76,76,2025-12-12 16:02:46,20621,Taj khad Bhandar YCNC,Mahir Alam,9568286750,hi_IN,,Amroha,,potato,4,"YaraMila Complex 
+ Cashback Amount : ₹40",3,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",3,25kg,,,,,,,,,,,No,Verified,2025-12-12 16:05:28,,,Landing,sent,en,2025-10-20
+77,77,2025-12-12 18:40:14,20624,SHREE JI TRADING CO,Harsh Varshney ,8445491470,hi_IN,,Moradabad,,"potato,paddy",18,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-12 18:50:30,,,Landing,delivered,en,0000-00-00
+78,78,2025-12-12 18:41:19,20624,SHREE JI TRADING CO,Ravi Pathak,9760868902,hi_IN,,Moradabad,,potato,22,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-12 18:50:30,,,Landing,read,en,2025-12-14
+80,80,2025-12-16 12:13:36,20617,Ms om traders,Upendra  Singh ,9639777151,hi_IN,,Amroha,,potato,2,"YaraMila Complex 
+ Cashback Amount : ₹40",1,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",1,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",1,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",1,250ml,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,,No,Verified,2025-12-16 13:00:15,,,Landing,delivered,hi,2025-10-02
+81,81,2025-12-16 15:08:51,20617,Ms om traders,Kiranpal  Singh,9837594770,hi_IN,,Amroha,,potato,1,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,,,,,,,,,,,,,,No,Verified,2025-12-16 15:50:16,,,Landing,sent,en,2025-10-01
+82,82,2025-12-16 16:11:13,20624,SHREE JI TRADING CO,Pratik  Gupta ,8279822381,hi_IN,,Moradabad,,potato,25,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-16 16:15:32,,,Landing,read,en,2025-11-06
+83,83,2025-12-16 16:32:09,20624,SHREE JI TRADING CO,Nempal Singh,9758111720,hi_IN,,Moradabad,,"peas,paddy,potato",28,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-16 16:39:46,,,Landing,delivered,en,2025-10-09
+84,84,2025-12-16 16:35:38,20617,Ms om traders,Rupandr Rupandr,9639914302,hi_IN,,Amroha,,potato,2,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,"YaraMila Complex 
+ Cashback Amount : ₹40",1,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",1,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",1,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",1,250ml,,No,Verified,2025-12-16 16:40:14,,,Landing,delivered,hi,2025-10-03
+85,85,2025-12-16 19:50:51,20624,SHREE JI TRADING CO,Dev Dev,7906463244,hi_IN,,Moradabad,,"potato,peas,paddy",30,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-16 19:55:35,,,Landing,delivered,en,2025-11-03
+86,86,2025-12-16 19:57:24,20624,SHREE JI TRADING CO,Ram Ram ,7505501628,hi_IN,,Moradabad,,potato,26,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-16 20:00:15,,,Landing,delivered,en,2025-11-01
+87,87,2025-12-17 14:11:16,20624,SHREE JI TRADING CO,Himanshu  Pathak ,9719696706,hi_IN,,Moradabad,,"potato,paddy",35,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-17 14:15:36,,,Landing,read,en,2025-11-01
+88,88,2025-12-17 14:14:23,20624,SHREE JI TRADING CO,Munish  Munish ,8171291345,hi_IN,,Moradabad,,"potato,paddy",25,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-17 14:21:28,,,Landing,delivered,en,2025-11-01
+89,89,2025-12-17 14:28:51,20617,Ms om traders,Sandeep  Kumar,7351485849,hi_IN,,Amroha,,potato,2,"YaraMila Complex 
+ Cashback Amount : ₹40",1,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",1,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",1,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",1,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",1,250ml,,No,Verified,2025-12-17 14:30:52,,,Landing,delivered,hi,2025-10-05
+90,90,2025-12-18 13:34:12,20624,SHREE JI TRADING CO,Neeraj  Neeraj ,6396051515,hi_IN,,Moradabad,,"potato,paddy,peas",25,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-18 13:40:21,,,Landing,read,en,0000-00-00
+91,91,2025-12-19 9:55:22,20624,SHREE JI TRADING CO,Amit Amit,7300724178,hi_IN,,Moradabad,,"potato,paddy,peas",25,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-19 10:00:21,,,Landing,delivered,en,0000-00-00
+92,92,2025-12-19 11:54:07,20624,SHREE JI TRADING CO,omprakash omprakash,9012742905,hi_IN,,Moradabad,,"potato,peas,paddy",25,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,,,,,,,,,,,,,,No,Verified,2025-12-19 12:00:21,,,Landing,delivered,en,0000-00-00
+93,93,2025-12-19 12:53:15,20616,Kisan Seva Kendra,Kuldeep  Singh ,7500088345,hi_IN,,Amroha,,potato,4,"YaraMila Complex 
+ Cashback Amount : ₹40",4,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",4,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",4,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",4,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",4,250ml,,No,Rejected,2025-12-19 13:00:23,,,Landing,read,en,2025-10-22
+94,94,2025-12-19 13:01:06,20616,Kisan Seva Kendra,harpal singh,9411266143,hi_IN,,Amroha,,potato,5,"YaraMila Complex 
+ Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",5,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",5,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",5,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",5,250ml,,No,Verified,2025-12-19 18:40:32,,,Landing,delivered,hi,2025-10-20
+95,95,2025-12-19 18:33:30,20616,Kisan Seva Kendra,Kuldeep  Singh ,7500088345,hi_IN,,Amroha,,"potato,peas",6,"YaraMila Complex 
+ Cashback Amount : ₹40",7,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",7,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",6,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",6,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",6,250ml,,No,Verified,2025-12-19 18:40:31,,,Landing,delivered,en,2025-10-15
+96,96,2025-12-20 9:44:36,20616,Kisan Seva Kendra,Vikil  Singh,8755892015,hi_IN,,Amroha,,"potato,peas",4,"YaraMila Complex 
+ Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",5,25kg,"YaraVita Seniphos 
+ Cashback Amount : ₹20",4,500ml,"YaraVita Bortrac 
+ Cashback Amount : ₹10",4,250ml,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",4,250ml,,No,Verified,2025-12-20 9:50:17,,,Landing,sent,hi,2025-10-29
+97,97,2025-12-20 14:41:26,20625,DINESH KUMAR KHAD BHANDAR,Chhotu Saini,9119084649,hi_IN,,Moradabad,,potato,20,"YaraMila Complex 
+ Cashback Amount : ₹40",10,25kg,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",9,250ml,,,,,,,,,,,No,Verified,2025-12-20 18:50:21,,,Landing,delivered,hi,2025-10-05
+98,98,2025-12-20 14:42:48,20625,DINESH KUMAR KHAD BHANDAR,Chhotu Saini,9119084649,hi_IN,,Moradabad,,potato,20,"YaraLiva Nitrabor 
+ Cashback Amount : ₹25",5,25kg,,,,,,,,,,,,,,No,Pending,,,,Landing,,hi,2025-10-05
+99,99,2025-12-20 14:44:16,20625,DINESH KUMAR KHAD BHANDAR,Chhotu Saini,9119084649,hi_IN,,Moradabad,,potato,20,"YaraVita Seniphos 
+ Cashback Amount : ₹20",10,500ml,,,,,,,,,,,,,,No,Pending,,,,Landing,,hi,2025-10-05
+101,101,2025-12-20 14:45:49,20625,DINESH KUMAR KHAD BHANDAR,Chhotu Saini,9119084649,hi_IN,,Moradabad,,potato,20,"YaraVita Bortrac 
+ Cashback Amount : ₹10",10,250ml,,,,,,,,,,,,,,No,Pending,,,,Landing,,hi,2025-10-05
+100,100,2025-12-20 14:45:16,20625,DINESH KUMAR KHAD BHANDAR,Chhotu Saini,9119084649,hi_IN,,Moradabad,,potato,20,"YaraVita Zintrac 700 
+ Cashback Amount : ₹10",9,250ml,,,,,,,,,,,,,,No,Verified,2025-12-20 18:50:21,,,Landing,delivered,hi,2025-10-05
