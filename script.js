@@ -469,20 +469,22 @@ function updateProductChart() {
                 label: 'Units Ordered',
                 data: Object.values(productCounts),
                 backgroundColor: [
-                    'rgba(52, 152, 219, 0.8)',
-                    'rgba(46, 204, 113, 0.8)',
-                    'rgba(155, 89, 182, 0.8)',
-                    'rgba(241, 196, 15, 0.8)',
-                    'rgba(231, 76, 60, 0.8)'
+                    'rgba(99, 102, 241, 0.85)',
+                    'rgba(34, 197, 94, 0.85)',
+                    'rgba(168, 85, 247, 0.85)',
+                    'rgba(251, 191, 36, 0.85)',
+                    'rgba(239, 68, 68, 0.85)'
                 ],
                 borderColor: [
-                    'rgba(52, 152, 219, 1)',
-                    'rgba(46, 204, 113, 1)',
-                    'rgba(155, 89, 182, 1)',
-                    'rgba(241, 196, 15, 1)',
-                    'rgba(231, 76, 60, 1)'
+                    'rgba(99, 102, 241, 1)',
+                    'rgba(34, 197, 94, 1)',
+                    'rgba(168, 85, 247, 1)',
+                    'rgba(251, 191, 36, 1)',
+                    'rgba(239, 68, 68, 1)'
                 ],
-                borderWidth: 2
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false
             }]
         },
         options: {
@@ -495,14 +497,42 @@ function updateProductChart() {
                 tooltip: {
                     callbacks: {
                         label: (context) => `Units: ${context.parsed.y.toLocaleString()}`
-                    }
+                    },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#1f2937',
+                    bodyColor: '#4b5563',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: (value) => value.toLocaleString()
+                        callback: (value) => value.toLocaleString(),
+                        color: '#6b7280',
+                        font: {
+                            size: 11,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(229, 231, 235, 0.5)',
+                        drawBorder: false
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#6b7280',
+                        font: {
+                            size: 11,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        display: false
                     }
                 }
             }
@@ -546,22 +576,30 @@ function updateCashbackChart() {
             datasets: [{
                 data: Object.values(cashbackByProduct),
                 backgroundColor: [
-                    'rgba(52, 152, 219, 0.8)',
-                    'rgba(46, 204, 113, 0.8)',
-                    'rgba(155, 89, 182, 0.8)',
-                    'rgba(241, 196, 15, 0.8)',
-                    'rgba(231, 76, 60, 0.8)'
+                    'rgba(99, 102, 241, 0.9)',
+                    'rgba(34, 197, 94, 0.9)',
+                    'rgba(168, 85, 247, 0.9)',
+                    'rgba(251, 191, 36, 0.9)',
+                    'rgba(239, 68, 68, 0.9)'
                 ],
                 borderColor: '#ffffff',
-                borderWidth: 2
+                borderWidth: 3
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            cutout: '60%',
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        },
+                        padding: 12
+                    }
                 },
                 tooltip: {
                     callbacks: {
@@ -570,7 +608,14 @@ function updateCashbackChart() {
                             const value = context.parsed || 0;
                             return `${label}: ₹${value.toLocaleString()}`;
                         }
-                    }
+                    },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#1f2937',
+                    bodyColor: '#4b5563',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8
                 }
             }
         }
@@ -604,36 +649,41 @@ function updateCropChart() {
     }
 
     charts.cropChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
             labels: sortedCrops.map(item => item[0]),
             datasets: [{
                 data: sortedCrops.map(item => item[1]),
                 backgroundColor: [
-                    'rgba(52, 152, 219, 0.8)',
-                    'rgba(46, 204, 113, 0.8)',
-                    'rgba(155, 89, 182, 0.8)',
-                    'rgba(241, 196, 15, 0.8)',
-                    'rgba(231, 76, 60, 0.8)',
-                    'rgba(52, 73, 94, 0.8)',
-                    'rgba(26, 188, 156, 0.8)',
-                    'rgba(230, 126, 34, 0.8)',
-                    'rgba(149, 165, 166, 0.8)',
-                    'rgba(192, 57, 43, 0.8)'
+                    'rgba(99, 102, 241, 0.9)',
+                    'rgba(34, 197, 94, 0.9)',
+                    'rgba(168, 85, 247, 0.9)',
+                    'rgba(251, 191, 36, 0.9)',
+                    'rgba(239, 68, 68, 0.9)',
+                    'rgba(59, 130, 246, 0.9)',
+                    'rgba(20, 184, 166, 0.9)',
+                    'rgba(249, 115, 22, 0.9)',
+                    'rgba(236, 72, 153, 0.9)',
+                    'rgba(14, 165, 233, 0.9)'
                 ],
                 borderColor: '#ffffff',
-                borderWidth: 2
+                borderWidth: 3
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            cutout: '60%',
             plugins: {
                 legend: {
                     position: 'bottom',
                     labels: {
                         boxWidth: 15,
-                        padding: 10
+                        padding: 10,
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
                     }
                 },
                 tooltip: {
@@ -643,7 +693,14 @@ function updateCropChart() {
                             const value = context.parsed || 0;
                             return `${label}: ${value.toLocaleString()} farmers`;
                         }
-                    }
+                    },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#1f2937',
+                    bodyColor: '#4b5563',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8
                 }
             }
         }
@@ -834,9 +891,11 @@ function updateRetailerChart() {
             datasets: [{
                 label: 'Total Orders',
                 data: topRetailers.map(r => r.orders),
-                backgroundColor: 'rgba(102, 126, 234, 0.8)',
-                borderColor: 'rgba(102, 126, 234, 1)',
-                borderWidth: 2
+                backgroundColor: 'rgba(99, 102, 241, 0.85)',
+                borderColor: 'rgba(99, 102, 241, 1)',
+                borderWidth: 2,
+                borderRadius: 6,
+                borderSkipped: false
             }]
         },
         options: {
@@ -856,12 +915,42 @@ function updateRetailerChart() {
                                 `Unique Farmers: ${retailer.farmers}`
                             ];
                         }
-                    }
+                    },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#1f2937',
+                    bodyColor: '#4b5563',
+                    borderColor: '#e5e7eb',
+                    borderWidth: 1,
+                    padding: 12,
+                    cornerRadius: 8
                 }
             },
             scales: {
                 x: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#6b7280',
+                        font: {
+                            size: 11,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(229, 231, 235, 0.5)',
+                        drawBorder: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: '#6b7280',
+                        font: {
+                            size: 11,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
                 }
             }
         }
