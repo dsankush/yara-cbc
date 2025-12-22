@@ -157,25 +157,32 @@ body {
     color: var(--secondary-color);
 }
 
+.custom-date-range {
+    grid-column: 1 / -1;
+}
+
 .date-inputs {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .date-inputs span {
     color: var(--text-secondary);
     font-size: 12px;
+    font-weight: 600;
 }
 
 .filter-input,
 .filter-select {
-    padding: 10px;
+    padding: 10px 12px;
     border: 2px solid var(--border-color);
     border-radius: 8px;
     font-size: 14px;
     background: white;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .filter-input:focus,
@@ -185,7 +192,11 @@ body {
 }
 
 .filter-select {
-    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237f8c8d' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
 }
 
 .btn-reset {
@@ -242,6 +253,12 @@ body {
     justify-content: center;
     font-size: 24px;
     color: white;
+    flex-shrink: 0;
+}
+
+.kpi-content {
+    flex: 1;
+    min-width: 0;
 }
 
 .kpi-content h3 {
@@ -249,6 +266,8 @@ body {
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .kpi-content p {
@@ -425,6 +444,11 @@ body {
 
     .date-inputs {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .date-inputs span {
+        text-align: center;
     }
 }
 
