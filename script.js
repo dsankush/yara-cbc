@@ -881,26 +881,18 @@ function downloadData() {
     
     document.body.appendChild(link);
     link.click();
-    document.body
-    <invoke name="artifacts">
-<parameter name="command">update</parameter>
-<parameter name="id">yara_script</parameter>
-<parameter name="old_str">    document.body.appendChild(link);
-    link.click();
-    document.body</parameter>
-<parameter name="new_str">    document.body.appendChild(link);
-    link.click();
     document.body.removeChild(link);
 }
+
 // Debounce Function
 function debounce(func, wait) {
-let timeout;
-return function executedFunction(...args) {
-const later = () => {
-clearTimeout(timeout);
-func(...args);
-};
-clearTimeout(timeout);
-timeout = setTimeout(later, wait);
-};
-}</parameter>
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
