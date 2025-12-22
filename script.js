@@ -13,6 +13,7 @@ const CASHBACK_THRESHOLD = 10000;
 let rawData = [];
 let filteredData = [];
 let charts = {};
+let farmerCashbackRegistry = new Map(); // Track which farmers have received cashback
 
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,8 +33,9 @@ async function loadCSVData() {
             skipEmptyLines: true,
             complete: (results) => {
                 rawData = results.data;
-                filteredData = [...rawData];
+                processData();
                 initializeFilters();
+                filteredData = [...rawData];
                 updateDashboard();
             },
             error: (error) => {
@@ -47,17 +49,178 @@ async function loadCSVData() {
     }
 }
 
+// Process Data - Build Cashback Registry (One-Time Rule)
+function processData() {
+    // Sort by date to process chronologically
+    const sortedData = [...rawData].sort((a, b) => {
+        const dateA = parseDate(a['Date of Entry']);
+        const dateB = parseDate(b['Date of Entry']);
+        return dateA - dateB;
+    });
+
+    farmerCashbackRegistry.clear();
+
+    sortedData.forEach(row => {
+        const farmerId = row['Farmer Mobile'];
+        const approvalStatus = row['Approval Status'];
+
+        // Skip if not verified/approved
+        if (approvalStatus !== 'Verified') {
+            return;
+        }
+
+        // Skip if farmer already received cashback
+        if (farmerCashbackRegistry.has(farmerId)) {
+            return;
+        }
+
+        // Calculate purchase value for this transaction
+        const purchaseValue = calculateTransactionValue(row);
+
+        // Check if meets threshold
+        if (purchaseValue >= CASHBACK_THRESHOLD) {
+            const cashback = calculateTransactionCashback(row);
+            
+            farmerCashbackRegistry.set(farmerId, {
+                orderId: row['Order ID'],
+                date: row['Date of Entry'],
+                purchaseValue: purchaseValue,
+                cashbackAmount: cashback,
+                products: extractTransactionProducts(row)
+            });
+        }
+    });
+}
+
+// Calculate Transaction Value (Single Order)
+function calculateTransactionValue(row) {
+    let totalValue = 0;
+    
+    for (let i = 1; i <= 5; i++) {
+        const productName = extractProductName(row[`Product Name ${i}`]);
+        const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
+        
+        if (productName && quantity > 0) {
+            const config = PRODUCT_CONFIG[productName];
+            if (config) {
+                totalValue += config.pricePerUnit * quantity;
+            }
+        }
+    }
+    
+    return totalValue;
+}
+
+// Calculate Transaction Cashback
+function calculateTransactionCashback(row) {
+    let totalCashback = 0;
+    
+    for (let i = 1; i <= 5; i++) {
+        const productName = extractProductName(row[`Product Name ${i}`]);
+        const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
+        
+        if (productName && quantity > 0) {
+            const config = PRODUCT_CONFIG[productName];
+            if (config) {
+                totalCashback += config.cashbackPerUnit * quantity;
+            }
+        }
+    }
+    
+    return totalCashback;
+}
+
+// Extract Transaction Products
+function extractTransactionProducts(row) {
+    const products = [];
+    
+    for (let i = 1; i <= 5; i++) {
+        const productName = extractProductName(row[`Product Name ${i}`]);
+        const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
+        
+        if (productName && quantity > 0) {
+            products.push({
+                name: productName,
+                quantity: quantity
+            });
+        }
+    }
+    
+    return products;
+}
+
 // Setup Event Listeners
 function setupEventListeners() {
     document.getElementById('universalSearch').addEventListener('input', debounce(applyFilters, 300));
+    document.getElementById('dateRangeFilter').addEventListener('change', handleDateRangeChange);
     document.getElementById('startDate').addEventListener('change', applyFilters);
     document.getElementById('endDate').addEventListener('change', applyFilters);
     document.getElementById('districtFilter').addEventListener('change', applyFilters);
     document.getElementById('cropFilter').addEventListener('change', applyFilters);
     document.getElementById('productFilter').addEventListener('change', applyFilters);
     document.getElementById('retailerFilter').addEventListener('change', applyFilters);
+    document.getElementById('statusFilter').addEventListener('change', applyFilters);
     document.getElementById('resetFilters').addEventListener('click', resetFilters);
     document.getElementById('downloadBtn').addEventListener('click', downloadData);
+}
+
+// Handle Date Range Change
+function handleDateRangeChange() {
+    const dateRange = document.getElementById('dateRangeFilter').value;
+    const customDateRange = document.getElementById('customDateRange');
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+
+    if (dateRange === 'custom') {
+        customDateRange.style.display = 'block';
+        return;
+    } else {
+        customDateRange.style.display = 'none';
+    }
+
+    const today = new Date();
+    let startDate = null;
+    let endDate = new Date(today);
+
+    switch (dateRange) {
+        case 'today':
+            startDate = new Date(today);
+            break;
+        case 'yesterday':
+            startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 1);
+            endDate = new Date(startDate);
+            break;
+        case 'last7days':
+            startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 7);
+            break;
+        case 'last30days':
+            startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 30);
+            break;
+        case 'thismonth':
+            startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+            break;
+        case 'lastmonth':
+            startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+            endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+            break;
+        default:
+            startDateInput.value = '';
+            endDateInput.value = '';
+            applyFilters();
+            return;
+    }
+
+    if (startDate) {
+        startDateInput.value = startDate.toISOString().split('T')[0];
+    }
+    if (endDate) {
+        endDateInput.value = endDate.toISOString().split('T')[0];
+    }
+
+    applyFilters();
 }
 
 // Initialize Filters
@@ -126,10 +289,11 @@ function applyFilters() {
     const searchTerm = document.getElementById('universalSearch').value.toLowerCase();
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const selectedDistricts = getSelectedOptions('districtFilter');
-    const selectedCrops = getSelectedOptions('cropFilter');
-    const selectedProducts = getSelectedOptions('productFilter');
-    const selectedRetailers = getSelectedOptions('retailerFilter');
+    const selectedDistrict = document.getElementById('districtFilter').value;
+    const selectedCrop = document.getElementById('cropFilter').value;
+    const selectedProduct = document.getElementById('productFilter').value;
+    const selectedRetailer = document.getElementById('retailerFilter').value;
+    const selectedStatus = document.getElementById('statusFilter').value;
 
     filteredData = rawData.filter(row => {
         // Universal Search
@@ -143,29 +307,33 @@ function applyFilters() {
             const rowDate = parseDate(row['Date of Entry']);
             if (rowDate) {
                 if (startDate && rowDate < new Date(startDate)) return false;
-                if (endDate && rowDate > new Date(endDate)) return false;
+                if (endDate) {
+                    const endDateTime = new Date(endDate);
+                    endDateTime.setHours(23, 59, 59, 999);
+                    if (rowDate > endDateTime) return false;
+                }
             }
         }
 
         // District Filter
-        if (selectedDistricts.length > 0 && !selectedDistricts.includes(row['District'])) {
+        if (selectedDistrict && row['District'] !== selectedDistrict) {
             return false;
         }
 
         // Crop Filter
-        if (selectedCrops.length > 0) {
+        if (selectedCrop) {
             const rowCrops = row['Crops Selected'] ? row['Crops Selected'].split(',').map(c => c.trim()) : [];
-            if (!selectedCrops.some(crop => rowCrops.includes(crop))) {
+            if (!rowCrops.includes(selectedCrop)) {
                 return false;
             }
         }
 
         // Product Filter
-        if (selectedProducts.length > 0) {
+        if (selectedProduct) {
             let hasProduct = false;
             for (let i = 1; i <= 5; i++) {
                 const productName = extractProductName(row[`Product Name ${i}`]);
-                if (productName && selectedProducts.includes(productName)) {
+                if (productName && productName === selectedProduct) {
                     hasProduct = true;
                     break;
                 }
@@ -174,7 +342,12 @@ function applyFilters() {
         }
 
         // Retailer Filter
-        if (selectedRetailers.length > 0 && !selectedRetailers.includes(row['Retailer Name'])) {
+        if (selectedRetailer && row['Retailer Name'] !== selectedRetailer) {
+            return false;
+        }
+
+        // Status Filter
+        if (selectedStatus && row['Approval Status'] !== selectedStatus) {
             return false;
         }
 
@@ -182,14 +355,6 @@ function applyFilters() {
     });
 
     updateDashboard();
-}
-
-// Get Selected Options from Multi-select
-function getSelectedOptions(selectId) {
-    const select = document.getElementById(selectId);
-    return Array.from(select.selectedOptions)
-        .map(opt => opt.value)
-        .filter(val => val !== '');
 }
 
 // Parse Date
@@ -208,12 +373,15 @@ function parseDate(dateString) {
 // Reset Filters
 function resetFilters() {
     document.getElementById('universalSearch').value = '';
+    document.getElementById('dateRangeFilter').value = '';
     document.getElementById('startDate').value = '';
     document.getElementById('endDate').value = '';
-    document.getElementById('districtFilter').selectedIndex = -1;
-    document.getElementById('cropFilter').selectedIndex = -1;
-    document.getElementById('productFilter').selectedIndex = -1;
-    document.getElementById('retailerFilter').selectedIndex = -1;
+    document.getElementById('districtFilter').value = '';
+    document.getElementById('cropFilter').value = '';
+    document.getElementById('productFilter').value = '';
+    document.getElementById('retailerFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('customDateRange').style.display = 'none';
     
     filteredData = [...rawData];
     updateDashboard();
@@ -228,50 +396,6 @@ function updateDashboard() {
     updateDistrictMap();
     updateBudgetTable();
     updateRetailerChart();
-}
-
-// Calculate Farmer Purchase Value
-function calculateFarmerPurchase(row) {
-    let totalValue = 0;
-    
-    for (let i = 1; i <= 5; i++) {
-        const productName = extractProductName(row[`Product Name ${i}`]);
-        const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
-        
-        if (productName && quantity > 0) {
-            const config = PRODUCT_CONFIG[productName];
-            if (config) {
-                totalValue += config.pricePerUnit * quantity;
-            }
-        }
-    }
-    
-    return totalValue;
-}
-
-// Calculate Cashback for Farmer
-function calculateFarmerCashback(row) {
-    const purchaseValue = calculateFarmerPurchase(row);
-    
-    if (purchaseValue < CASHBACK_THRESHOLD) {
-        return 0;
-    }
-    
-    let totalCashback = 0;
-    
-    for (let i = 1; i <= 5; i++) {
-        const productName = extractProductName(row[`Product Name ${i}`]);
-        const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
-        
-        if (productName && quantity > 0) {
-            const config = PRODUCT_CONFIG[productName];
-            if (config) {
-                totalCashback += config.cashbackPerUnit * quantity;
-            }
-        }
-    }
-    
-    return totalCashback;
 }
 
 // Update KPIs
@@ -292,19 +416,19 @@ function updateKPIs() {
     document.getElementById('verifiedCount').textContent = verified.toLocaleString();
     document.getElementById('rejectedCount').textContent = rejected.toLocaleString();
 
-    // Cashback Winners
-    const cashbackWinners = new Set();
+    // Cashback Winners and Total Cashback (Based on Registry)
+    const filteredFarmerIds = new Set(filteredData.map(row => row['Farmer Mobile']));
+    let cashbackWinners = 0;
     let totalCashback = 0;
 
-    filteredData.forEach(row => {
-        const cashback = calculateFarmerCashback(row);
-        if (cashback > 0) {
-            cashbackWinners.add(row['Farmer Mobile']);
-            totalCashback += cashback;
+    farmerCashbackRegistry.forEach((cashbackData, farmerId) => {
+        if (filteredFarmerIds.has(farmerId)) {
+            cashbackWinners++;
+            totalCashback += cashbackData.cashbackAmount;
         }
     });
 
-    document.getElementById('cashbackWinners').textContent = cashbackWinners.size.toLocaleString();
+    document.getElementById('cashbackWinners').textContent = cashbackWinners.toLocaleString();
     document.getElementById('totalCashback').textContent = `₹${totalCashback.toLocaleString()}`;
 
     // Active Retailers
@@ -394,21 +518,18 @@ function updateCashbackChart() {
         cashbackByProduct[product] = 0;
     });
 
-    filteredData.forEach(row => {
-        const cashback = calculateFarmerCashback(row);
-        
-        if (cashback > 0) {
-            for (let i = 1; i <= 5; i++) {
-                const productName = extractProductName(row[`Product Name ${i}`]);
-                const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
-                
-                if (productName && quantity > 0) {
-                    const config = PRODUCT_CONFIG[productName];
-                    if (config) {
-                        cashbackByProduct[productName] = (cashbackByProduct[productName] || 0) + (config.cashbackPerUnit * quantity);
-                    }
+    // Get filtered farmer IDs
+    const filteredFarmerIds = new Set(filteredData.map(row => row['Farmer Mobile']));
+
+    // Aggregate cashback by product from registry
+    farmerCashbackRegistry.forEach((cashbackData, farmerId) => {
+        if (filteredFarmerIds.has(farmerId)) {
+            cashbackData.products.forEach(product => {
+                const config = PRODUCT_CONFIG[product.name];
+                if (config) {
+                    cashbackByProduct[product.name] += config.cashbackPerUnit * product.quantity;
                 }
-            }
+            });
         }
     });
 
@@ -532,6 +653,7 @@ function updateCropChart() {
 // Update District Map
 function updateDistrictMap() {
     const districtData = {};
+    const filteredFarmerIds = new Set(filteredData.map(row => row['Farmer Mobile']));
 
     filteredData.forEach(row => {
         const district = row['District'];
@@ -544,10 +666,19 @@ function updateDistrictMap() {
             }
             
             districtData[district].totalFarmers.add(row['Farmer Mobile']);
-            
-            const cashback = calculateFarmerCashback(row);
-            if (cashback > 0) {
-                districtData[district].cashbackWinners.add(row['Farmer Mobile']);
+        }
+    });
+
+    // Add cashback winners from registry
+    farmerCashbackRegistry.forEach((cashbackData, farmerId) => {
+        if (filteredFarmerIds.has(farmerId)) {
+            // Find district for this farmer
+            const farmerRow = filteredData.find(row => row['Farmer Mobile'] === farmerId);
+            if (farmerRow && farmerRow['District']) {
+                const district = farmerRow['District'];
+                if (districtData[district]) {
+                    districtData[district].cashbackWinners.add(farmerId);
+                }
             }
         }
     });
@@ -590,9 +721,11 @@ function updateBudgetTable() {
         };
     });
 
+    // Get filtered farmer IDs
+    const filteredFarmerIds = new Set(filteredData.map(row => row['Farmer Mobile']));
+
+    // Count all bags sold (from filtered data)
     filteredData.forEach(row => {
-        const cashback = calculateFarmerCashback(row);
-        
         for (let i = 1; i <= 5; i++) {
             const productName = extractProductName(row[`Product Name ${i}`]);
             const quantity = parseInt(row[`Product Quantity ${i}`]) || 0;
@@ -600,14 +733,19 @@ function updateBudgetTable() {
             if (productName && quantity > 0) {
                 budgetData[productName].bagsSold += quantity;
                 budgetData[productName].farmers.add(row['Farmer Mobile']);
-                
-                if (cashback > 0) {
-                    const config = PRODUCT_CONFIG[productName];
-                    if (config) {
-                        budgetData[productName].cashbackDistributed += config.cashbackPerUnit * quantity;
-                    }
-                }
             }
+        }
+    });
+
+    // Calculate cashback distributed ONLY from registry (one-time rule)
+    farmerCashbackRegistry.forEach((cashbackData, farmerId) => {
+        if (filteredFarmerIds.has(farmerId)) {
+            cashbackData.products.forEach(product => {
+                const config = PRODUCT_CONFIG[product.name];
+                if (config) {
+                    budgetData[product.name].cashbackDistributed += config.cashbackPerUnit * product.quantity;
+                }
+            });
         }
     });
 
@@ -627,8 +765,8 @@ function updateBudgetTable() {
                 ${Object.entries(budgetData).map(([product, data]) => {
                     const config = PRODUCT_CONFIG[product];
                     const consumed = data.cashbackDistributed;
-                    const remaining = config.budget - consumed;
-                    const percentage = (consumed / config.budget * 100).toFixed(1);
+                    const remaining = Math.max(0, config.budget - consumed);
+                    const percentage = Math.min(100, (consumed / config.budget * 100)).toFixed(1);
                     
                     return `
                         <tr>
@@ -743,18 +881,26 @@ function downloadData() {
     
     document.body.appendChild(link);
     link.click();
+    document.body
+    <invoke name="artifacts">
+<parameter name="command">update</parameter>
+<parameter name="id">yara_script</parameter>
+<parameter name="old_str">    document.body.appendChild(link);
+    link.click();
+    document.body</parameter>
+<parameter name="new_str">    document.body.appendChild(link);
+    link.click();
     document.body.removeChild(link);
 }
-
 // Debounce Function
 function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
+let timeout;
+return function executedFunction(...args) {
+const later = () => {
+clearTimeout(timeout);
+func(...args);
+};
+clearTimeout(timeout);
+timeout = setTimeout(later, wait);
+};
+}</parameter>
