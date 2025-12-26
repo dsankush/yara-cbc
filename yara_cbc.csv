@@ -81,7 +81,7 @@ Order ID,Check,Date of Entry,RIN,Retailer Name,Farmer Name,Farmer Mobile,Languag
  Cashback Amount : ₹25",7,25kg,"YaraVita Seniphos 
  Cashback Amount : ₹20",6,500ml,"YaraVita Bortrac 
  Cashback Amount : ₹10",6,250ml,"YaraVita Zintrac 700 
- Cashback Amount : ₹10",6,250ml,,No,Verified,19-12-2025 18:40,,,Landing,delivered,en,15-10-2025
+ Cashback Amount : ₹10",6,250ml,,No,Rejected,19-12-2025 18:40,,,Landing,delivered,en,15-10-2025
 96,96,20-12-2025 09:44,20616,Kisan Seva Kendra,Vikil  Singh,8755892015,hi_IN,,Amroha,,"potato,peas",4,"YaraMila Complex 
  Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
  Cashback Amount : ₹25",5,25kg,"YaraVita Seniphos 
@@ -151,6 +151,7 @@ Cashback Amount : ?10",1,250ml,,No,Verified,22-12-2025 12:00,,,Landing,delivered
 120,120,2025-12-26 9:07:12,20625,DINESH KUMAR KHAD BHANDAR,Naim Naim,7819926611,hi_IN,,Moradabad,,potato,12,"YaraMila Complex 
  Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
  Cashback Amount : ₹25",5,25kg,,,,,,,,,,,No,Pending,,,,Landing,,hi,0000-00-00
+
 121,121,2025-12-26 11:51:11,20625,DINESH KUMAR KHAD BHANDAR,Harveer Yaday,8392838330,hi_IN,,Moradabad,,potato,10,"YaraMila Complex 
  Cashback Amount : ₹40",5,25kg,"YaraLiva Nitrabor 
  Cashback Amount : ₹25",5,25kg,"YaraVita Seniphos 
